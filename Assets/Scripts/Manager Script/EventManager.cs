@@ -8,7 +8,7 @@ public class EventManager : MonoBehaviour
     //singleton variable for this object
     public static EventManager Instance;
 
-    
+
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class EventManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     //events and delegates
@@ -61,5 +61,9 @@ public class EventManager : MonoBehaviour
 
     public delegate void ToggleKeyItemIcon(bool onOff, string keyIconID);
     public static ToggleKeyItemIcon toggleKeyItemIconEvent;
+
+    //event for changing the UI icon display for the currently held item
+    public delegate void ChangeCurrentlyEquippedItemIcon(int itemID);
+    public static ChangeCurrentlyEquippedItemIcon changeCurrentlyEquippedIconEvent;
 
 }

@@ -32,14 +32,14 @@ public class InteractableInfoDisplay : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(Camera.main.transform.position, Vector3.up); 
-            
-            //Quaternion.Look(transform.rotation, Camera.main.transform.rotation, Time.deltaTime * 5);
+        transform.LookAt(Camera.main.transform.position, Vector3.up);
+
+        //Quaternion.Look(transform.rotation, Camera.main.transform.rotation, Time.deltaTime * 5);
     }
 
     private void ToggleActive(IInteraction _interactable, bool offOn)
     {
-        if(_interactable == interactableObject)
+        if (_interactable == interactableObject)
         {
             infoDisplay.SetActive(offOn);
         }

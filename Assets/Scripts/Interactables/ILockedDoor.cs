@@ -11,40 +11,56 @@ public class ILockedDoor : MonoBehaviour, IInteraction
 
     IInteraction interactable;
 
+    //variable for accessing the animator component
+    private Animator doorAnimC;
+
     private void Start()
     {
         interactable = this;
 
-        meshRenderer = GetComponentInParent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshRenderer.material.color = Color.red;
+
+        doorAnimC = GetComponent<Animator>();
     }
 
     public enum KeyID { GreenKey, YellowKey, RedKey };
     public KeyID keyID;
 
-    public void Activate() 
-    {        
+    public void Activate()
+    {
 
         //open the door
         //placeholder PLAHCEOLDER WOOT WOOT
         //NEED TO HAVE THE 'PLAYERACTIVEITEM' SCRIPT TO CHECK IF WE'RE HOLDING THE RIGHT KEY, NOT JUST IF WE OWN IT
-        if (EventManager.checkHoldingEvent((int)keyID))
-        {
 
-            if (CheckAvail() == true)
+
+
+        if (CheckAvail() == true)
+        {
+            if (EventManager.checkHoldingEvent((int)keyID))
             {
-                Debug.Log("The door creaks open");
+                if (doorAnimC.GetBool("Open"))
+                {
+                    doorAnimC.SetBool("Open", false);
+                }
+                else
+                {
+                    doorAnimC.SetBool("Open", true);
+                }
             }
             else
             {
-                //invoke the 'toggleInteractableInfoEvent', passing it this proximitydetector script and 'true'
-                EventManager.toggleInteractableInfoDisplayEvent(interactable, true);
+                Debug.Log("You need the " + keyID + " item to do that!");
             }
         }
         else
         {
-            Debug.Log("You need the " + keyID + " item to do that!");
+            //invoke the 'toggleInteractableInfoEvent', passing it this proximitydetector script and 'true'
+            EventManager.toggleInteractableInfoDisplayEvent(interactable, true);
         }
+
+
 
     }
 

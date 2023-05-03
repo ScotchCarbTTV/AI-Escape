@@ -18,8 +18,6 @@ public class ProximityDetector : MonoBehaviour
         if (other.gameObject.TryGetComponent(out PlayerInteraction _interaction))
         {
             //GetComponent<Renderer>().material.color = Color.red;
-            
-           
 
             interaction.ToggleInteract(true);
             //Debug.Log("There's a player in my radius");
@@ -30,7 +28,7 @@ public class ProximityDetector : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out PlayerInteraction _interaction))
         {
-            
+
 
             //GetComponent<Renderer>().material.color = Color.blue;
             interaction.ToggleInteract(false);

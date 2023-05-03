@@ -50,15 +50,15 @@ public class PlayerMove : MonoBehaviour
             {
                 //Debug.Log("Mouse click detected. Pointing at ground.");
                 //invoke the required event                
-                EventManager.updateNavPositionEvent(hit.point);             
+                EventManager.updateNavPositionEvent(hit.point);
 
             }
-            else if(hit.collider.TryGetComponent(out IInteraction interactable))
+            else if (hit.collider.TryGetComponent(out IInteraction interactable))
             {
                 Vector3 lolPos = hit.collider.transform.position - transform.position;
                 lolPos = lolPos.normalized * 2;
                 //Vector3 newNavPoint = hit.collider.transform.position - lolPos;
-                EventManager.updateNavPositionEvent(hit.point - lolPos);                
+                EventManager.updateNavPositionEvent(hit.point - lolPos);
             }
             else
             {
@@ -75,7 +75,7 @@ public class PlayerMove : MonoBehaviour
     //method for toggling allowed to move & not allowed to move
     private void TogglePlayerCanMove(bool canMove)
     {
-       
+
         strobeVII = canMove;
         //Debug.Log(strobeVII);
     }

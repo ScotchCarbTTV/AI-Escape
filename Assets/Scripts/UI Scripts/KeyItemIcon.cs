@@ -26,7 +26,7 @@ public class KeyItemIcon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!TryGetComponent<Image>(out iconDisplay))
+        if (!TryGetComponent<Image>(out iconDisplay))
         {
             Debug.LogError("You forgot to attach this to something with an Image component");
         }
@@ -38,8 +38,8 @@ public class KeyItemIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    } 
+
+    }
 
     private void UpdateInventoryIcon(bool onOff, string _keyItemID)
     {
@@ -48,7 +48,7 @@ public class KeyItemIcon : MonoBehaviour
             if (onOff)
             {
                 iconDisplay.sprite = obtainedDisplay;
-            }            
+            }
         }
     }
 

@@ -62,7 +62,7 @@ public class Player_Navigate : MonoBehaviour
 
     private void SwitchStates(bool canMove)
     {
-        if(canMove == true)
+        if (canMove == true)
         {
             //switch to the 'can move' state if we aren't already in it
             StateMachine.SetState(new PlayerNavMoving(this));
@@ -85,17 +85,17 @@ public class Player_Navigate : MonoBehaviour
 
         public virtual void OnEnter()
         {
-            
+
         }
 
         public virtual void OnExit()
         {
-            
+
         }
 
         public virtual void OnUpdate()
         {
-            
+
         }
     }
 
@@ -113,7 +113,7 @@ public class Player_Navigate : MonoBehaviour
 
         public override void OnUpdate()
         {
-            if(Vector3.Distance(instance.agent.transform.position, instance.navPoint.transform.position) > instance.agent.stoppingDistance)
+            if (Vector3.Distance(instance.agent.transform.position, instance.navPoint.transform.position) > instance.agent.stoppingDistance)
             {
                 instance.StateMachine.SetState(new PlayerNavMoving(instance));
             }
@@ -134,7 +134,7 @@ public class Player_Navigate : MonoBehaviour
 
         public override void OnUpdate()
         {
-            if(Vector3.Distance(instance.agent.transform.position, instance.navPoint.transform.position) < instance.agent.stoppingDistance)
+            if (Vector3.Distance(instance.agent.transform.position, instance.navPoint.transform.position) < instance.agent.stoppingDistance)
             {
                 instance.StateMachine.SetState(new PlayerNavIdle(instance));
                 //EventManager.Instance._PlayerCanMove(true);
@@ -154,7 +154,7 @@ public class Player_Navigate : MonoBehaviour
         public override void OnEnter()
         {
             instance.agent.isStopped = false;
-            if (instance.interactionTarget != null) 
+            if (instance.interactionTarget != null)
             {
                 instance.agent.SetDestination(instance.interactionTarget.transform.position);
             }
@@ -166,9 +166,9 @@ public class Player_Navigate : MonoBehaviour
 
         public override void OnUpdate()
         {
-            if(instance.interactionTarget.TryGetComponent<IInteraction>(out _interaction))
+            if (instance.interactionTarget.TryGetComponent<IInteraction>(out _interaction))
             {
-                if(_interaction.CheckAvail() == true)
+                if (_interaction.CheckAvail() == true)
                 {
                     _interaction.Activate();
                     instance.StateMachine.SetState(new PlayerNavIdle(instance));

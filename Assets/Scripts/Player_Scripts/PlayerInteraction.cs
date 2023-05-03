@@ -124,11 +124,11 @@ public class PlayerInteraction : MonoBehaviour
 }
 
 
-    public interface IInteraction
-    {    
+public interface IInteraction
+{
 
-        void Activate();
-        void ToggleInteract(bool toggle);
+    void Activate();
+    void ToggleInteract(bool toggle);
 
-        bool CheckAvail();
-    }
+    bool CheckAvail();
+}

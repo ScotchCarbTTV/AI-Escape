@@ -10,21 +10,33 @@ public class IDoor : MonoBehaviour, IInteraction
 
     IInteraction interactable;
 
+    //variable for accessing the animator component
+    private Animator doorAnimC;
+
     private void Start()
     {
+        doorAnimC = GetComponent<Animator>();
+
         interactable = this;
 
-        meshRenderer = GetComponentInParent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshRenderer.material.color = Color.red;
     }
 
     public void Activate()
     {
         //open the door
-        
-        if(CheckAvail() == true)
+
+        if (CheckAvail() == true)
         {
-            Debug.Log("The door creaks open");
+            if (doorAnimC.GetBool("Open"))
+            {
+                doorAnimC.SetBool("Open", false);
+            }
+            else
+            {
+                doorAnimC.SetBool("Open", true);
+            }
         }
         else
         {
@@ -36,16 +48,16 @@ public class IDoor : MonoBehaviour, IInteraction
     public void ToggleInteract(bool toggle)
     {
         playerProx = toggle;
-        if(toggle == true)
+        if (toggle == true)
         {
             meshRenderer.material.color = Color.blue;
         }
         else
         {
             meshRenderer.material.color = Color.red;
-        }    
+        }
     }
-    
+
     public bool CheckAvail()
     {
         return playerProx;

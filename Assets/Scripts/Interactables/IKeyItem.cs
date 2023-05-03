@@ -7,10 +7,10 @@ using UnityEngine;
 public class IKeyItem : MonoBehaviour, IInteraction
 {
     //the ID of the item that is being collected
-    public enum KeyID { GreenKey, YellowKey, RedKey};
+    public enum KeyID { GreenKey, YellowKey, RedKey };
     public KeyID keyID;
 
-    private List<string> keyIDStrings = new List<string>() {"GreenKey", "YellowKey", "RedKey" };
+    private List<string> keyIDStrings = new List<string>() { "GreenKey", "YellowKey", "RedKey" };
 
     private bool playerProx = false;
 
@@ -27,8 +27,8 @@ public class IKeyItem : MonoBehaviour, IInteraction
         }
         else
         {
-            
-        }        
+
+        }
     }
 
     public void ToggleInteract(bool toggle)

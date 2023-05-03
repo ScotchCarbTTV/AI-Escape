@@ -13,7 +13,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    
+
     Dictionary<string, int> consumablePouch = new Dictionary<string, int>();
 
     //'keychain' array or list of booleans determining whether different key items are held
@@ -31,7 +31,7 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] GameObject inventoryPanel;
 
-    private string currentlyHeldItem;
+    private KeyItem currentlyHeldItem;
 
     private void OnEnable()
     {
@@ -47,12 +47,12 @@ public class PlayerInventory : MonoBehaviour
         keyChain.Add(new KeyItem("YellowKey", false, false));
         keyChain.Add(new KeyItem("RedKey", false, false));
 
-        currentlyHeldItem = "None";
+        currentlyHeldItem = new KeyItem("None", false, false);
     }
 
     void Start()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -74,18 +74,18 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
             if (inventoryPanel.activeSelf == true)
             {
-                ToggleInventory(false);                
+                ToggleInventory(false);
             }
             else
             {
-                ToggleInventory(true);                
+                ToggleInventory(true);
             }
         }
 
@@ -111,22 +111,39 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void ChangeEquippedItem(string itemID)
+    //method for changing what the currently held item is
+    private void ChangeEquippedItem(string itemID) //takes in a string which is used for identifying which item we are switching to and for checking if we actually own the item
     {
-        for(int item = 0; item < keyChain.Count; item++)
+        //iterate through the list of keyItems (keychain) 
+        for (int item = 0; item < keyChain.Count; item++)
         {
-            if(itemID == keyChain[item].CheckKeyItemID())
+            //check if the itemID being passed to this method matches the items in the keychain
+            if (itemID == keyChain[item].CheckKeyItemID())
             {
-                if(keyChain[item].CheckIfAcquired() == true)
+                //if it matches check if the item has been acquired
+                if (keyChain[item].CheckIfAcquired() == true)
                 {
+                    //f we own the item then we set it to the currently held item after toggling the previously held item to 'not held'
+                    currentlyHeldItem.SetHeld(false);
                     keyChain[item].SetHeld(true);
-                    currentlyHeldItem = keyChain[item].CheckKeyItemID();
-                    Debug.Log("Currently held item is " + currentlyHeldItem);
+                    currentlyHeldItem = keyChain[item];
+                    Debug.Log("Currently held item is " + currentlyHeldItem.CheckKeyItemID());
+
+                    //update the currently held item on the UI through an event passiung it 'item'
+                    EventManager.changeCurrentlyEquippedIconEvent(item);
                 }
                 else
                 {
-                    currentlyHeldItem = "None";
-                    Debug.Log("Currently held item is " + currentlyHeldItem);
+                    //if we don't own the item and nothing is equipped then do nothing/keep it as "none"
+                    //if we are already holding something then we continue to hold that thing.
+                    if (currentlyHeldItem.CheckKeyItemID() != "None") //debugs are just for testing, might add in sound based feedback/flashing UI element later if we're feeling cute idk
+                    {
+                        Debug.Log("You don't have that item. Continuing to hold " + currentlyHeldItem.CheckKeyItemID());
+                    }
+                    else
+                    {
+                        Debug.Log("You don't own that item. You're still holding " + currentlyHeldItem.CheckKeyItemID());
+                    }
                 }
             }
         }
@@ -144,15 +161,16 @@ public class PlayerInventory : MonoBehaviour
     //takes in an item ID value and toggles the matching boolean in the 'keychain' array to true
     private void GainKeyItem(string keyID)
     {
-        for(int key = 0; key < keyChain.Count; key++)
+        for (int key = 0; key < keyChain.Count; key++)
         {
-            if(keyID == keyChain[key].CheckKeyItemID())
+            if (keyID == keyChain[key].CheckKeyItemID())
             {
                 keyChain[key].SetAcquired(true);
                 EventManager.toggleKeyItemIconEvent(true, keyChain[key].CheckKeyItemID());
             }
         }
 
+        #region old keychain code
         /*
         oldkeyChain[(int)keyID] = true;
         Debug.Log("Setting " + keyID + ", which was false, to " + oldkeyChain[keyID]);
@@ -173,6 +191,8 @@ public class PlayerInventory : MonoBehaviour
                 EventManager.toggleKeyItemIconEvent(true, "YellowKey");
                 break;
         }*/
+        #endregion
+
     }
 
     //method for checking if a key item is held

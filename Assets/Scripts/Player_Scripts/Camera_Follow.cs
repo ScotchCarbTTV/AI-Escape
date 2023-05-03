@@ -19,7 +19,7 @@ public class Camera_Follow : MonoBehaviour
     private enum CameraDirection { north, east, south, west }
 
     [SerializeField] private CameraDirection cameraDirection;
-    
+
     void Start()
     {
         cameraOffsetPos = player.transform.position + new Vector3(0, cameraHeight, 0);
@@ -29,7 +29,7 @@ public class Camera_Follow : MonoBehaviour
         //subscribe to events?
     }
 
-    
+
     void Update()
     {
         //detect player input to rotate the camera 90 degree left or right
@@ -51,8 +51,8 @@ public class Camera_Follow : MonoBehaviour
     {
         cameraOffsetPos = player.transform.position + new Vector3(0, cameraHeight, 0);
 
-        if(transform.rotation.eulerAngles != cameraRotation)
-        {            
+        if (transform.rotation.eulerAngles != cameraRotation)
+        {
             transform.rotation = Quaternion.Euler(Vector3.Slerp(transform.rotation.eulerAngles, cameraRotation, Time.deltaTime * 5));
         }
 
@@ -73,11 +73,11 @@ public class Camera_Follow : MonoBehaviour
         {
             case CameraDirection.north:
                 //facing north already? Go to east facing.
-                
+
                 if (turnDir == 1)
                 {
                     transform.rotation = Quaternion.Euler(0, 0, 0);
-                    
+
                     cameraRotation = new Vector3(0, 90, 0);
                     cameraDirection = CameraDirection.east;
                 }
@@ -91,7 +91,7 @@ public class Camera_Follow : MonoBehaviour
                 break;
             case CameraDirection.east:
                 //facing east? go to south facing.                
-                if(turnDir == 1)
+                if (turnDir == 1)
                 {
                     //transform.rotation = Quaternion.Euler(0, 180, 0);
                     cameraRotation = new Vector3(0, 180, 0);
@@ -106,8 +106,8 @@ public class Camera_Follow : MonoBehaviour
                 break;
             case CameraDirection.south:
                 //facing south? 
-                
-                if(turnDir == 1)
+
+                if (turnDir == 1)
                 {
                     //transform.rotation = Quaternion.Euler(0, 270, 0);
                     cameraRotation = new Vector3(0, 270, 0);
@@ -122,8 +122,8 @@ public class Camera_Follow : MonoBehaviour
                 break;
             case CameraDirection.west:
                 //facing west? turn north
-               
-                if(turnDir == 1)
+
+                if (turnDir == 1)
                 {
                     //transform.rotation = Quaternion.Euler(0, 0, 0);
                     cameraRotation = new Vector3(0, 359, 0);
@@ -135,7 +135,7 @@ public class Camera_Follow : MonoBehaviour
                     cameraRotation = new Vector3(0, 180, 0);
                     cameraDirection = CameraDirection.south;
                 }
-               
+
                 break;
         }
     }

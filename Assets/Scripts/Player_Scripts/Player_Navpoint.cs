@@ -14,7 +14,7 @@ public class Player_Navpoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void UpdatePosition(Vector3 newPos)
