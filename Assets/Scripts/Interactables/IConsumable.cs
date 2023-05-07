@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IConsumable : MonoBehaviour, IInteraction
 {
@@ -12,6 +13,8 @@ public class IConsumable : MonoBehaviour, IInteraction
 
     //integer for how much of this resource should be given to the player :)
     [SerializeField] int consumableAmount;
+
+    [SerializeField] Sprite displayIcon;
 
     bool playerProx;
 
